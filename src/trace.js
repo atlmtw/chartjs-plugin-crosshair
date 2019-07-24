@@ -4,7 +4,12 @@ export default function(Chart) {
 	var defaultOptions = {
 		line: {
 			color: '#F66',
+			fill: '#FFF',
 			width: 1
+		},
+		point: {
+			color: '#F66',
+			width: 1,
 		},
 		sync: {
 			enabled: true,
@@ -474,6 +479,10 @@ export default function(Chart) {
 
 		drawTracePoints: function(chart) {
 
+			var pointWidth = this.getOption(chart, 'point', 'width');
+			var color = this.getOption(chart, 'point', 'color');
+			var pointFill = this.getOption(chart, 'point', 'fill');
+
 			for (var chartIndex = 0; chartIndex < chart.data.datasets.length; chartIndex++) {
 
 				var dataset = chart.data.datasets[chartIndex];
@@ -487,9 +496,9 @@ export default function(Chart) {
 
 				chart.ctx.beginPath();
 				chart.ctx.arc(chart.crosshair.x, yScale.getPixelForValue(dataset.interpolatedValue), 3, 0, 2 * Math.PI, false);
-				chart.ctx.fillStyle = 'white';
-				chart.ctx.lineWidth = 2;
-				chart.ctx.strokeStyle = dataset.borderColor;
+				chart.ctx.fillStyle =  pointFill;
+				chart.ctx.lineWidth = pointWidth;
+				chart.ctx.strokeStyle = color;
 				chart.ctx.fill();
 				chart.ctx.stroke();
 
